@@ -21,19 +21,19 @@ gadm36_NIC_1_sf <- fortify(gadm36_NIC_1_sf)
 gadm36_NIC_1_sf <- gadm36_NIC_1_sf %>% 
   mutate(
     department = NAME_1, 
-    department = case_when(department == "Atl·ntico Norte" ~ "RACCN",
-                           department == "Atl·ntico Sur" ~ "RACCS",
+    department = case_when(department == "Atl√°ntico Norte" ~ "RACCN",
+                           department == "Atl√°ntico Sur" ~ "RACCS",
                            TRUE ~ as.character(department))
     )
 
 #Estimate incidence rate expressed in number of people affected per 100,000 of the population per year  
 accident <- accidentnic %>% 
   mutate(
-    percapita2000 = (accident2000 * 10000) / pob2000,
-    percapita2005 = (accident2005 * 10000) / pob2005,
-    percapita2010 = (accident2010 * 10000) / pob2010,
-    percapita2015 = (accident2015 * 10000) / pob2015,
-    percapita2020 = (accident2020 * 10000) / pob2020,
+    percapita2000 = (accident2000 / pob2000) * 100000
+    percapita2005 = (accident2005 / pob2005) * 100000
+    percapita2010 = (accident2010 / pob2010) * 100000
+    percapita2015 = (accident2015 / pob2015) * 100000
+    percapita2020 = (accident2020 / pob2020) * 100000
     percapita2000 = round(percapita2000, digits = 2),
     percapita2005 = round(percapita2005, digits = 2),
     percapita2010 = round(percapita2010, digits = 2),
@@ -72,13 +72,13 @@ mapnic <-joined_df_reshape %>%
     option = "magma", 
     direction = -1, 
     trans = "log", 
-    breaks = c(4,16,32,64,96,164)
+    breaks = c(40,80,160,320,640,1200)
   ) +
   labs(
     fill = "Car crashes",
     title = "Car crashes have increased in the last 2 decades",
-    subtitle = "Car accidents per 10,000 inhabitants",
-    caption = "Source: National Police Yearbooks & Population Estimation from the 2005 Census Data\n Design: Gers·n V·squez GutiÈrrez"
+    subtitle = "Car accidents per 100,000 inhabitants",
+    caption = "Source: National Police Yearbooks & Population Estimation from the 2005 Census Data\n Design: Gers√°n V√°squez Guti√©rrez"
   ) + 
   theme_ipsum_rc()+
   theme(
@@ -118,13 +118,13 @@ animated_map <-joined_df_reshape %>%
     option = "magma", 
     direction = -1, 
     trans = "log", 
-    breaks = c(4,16,32,64,96,164)
+    breaks = c(40,80,160,320,640,1200)
   ) +
   labs(
     fill = "Car crashes",
     title = "Car crashes have increased in the last 2 decades",
-    subtitle = "Car accidents per 10,000 inhabitants in {current_frame}",
-    caption = "Source: National Police Yearbooks & Population Estimation from the 2005 Census Data\n Design: Gers·n V·squez GutiÈrrez"
+    subtitle = "Car accidents per 100,000 inhabitants in {current_frame}",
+    caption = "Source: National Police Yearbooks & Population Estimation from the 2005 Census Data\n Design: Gers√°n V√°squez Guti√©rrez"
   ) + 
   theme_ipsum_rc()+
   theme(
