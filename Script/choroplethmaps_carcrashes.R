@@ -1,4 +1,4 @@
-#Crete a simple choropleth map and an animated choropleth map using the car crashes dataset
+#Crete a simple choropleth map and an animated choropleth map using the car crashes dataset from Nicaragua
 
 #Load packages
 library(tidyverse)
